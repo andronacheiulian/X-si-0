@@ -22,11 +22,11 @@ int main()
 		switch (meniu()) {
 		case '1':
 			fflush(stdin);
-			cout << "in lucru";
+			cout << "info";
 		case '2':
-			cout << "si mai in lucru";
+			cout << "info";
 		case'3':
-			cout << "aici e mai ok, trebuie niste info";
+			cout << "info";
 		case '4':
 			exit(0);
 		default:
