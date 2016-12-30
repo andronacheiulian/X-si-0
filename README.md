@@ -16,6 +16,24 @@ char meniu()
 
 int main()
 {
-	meniu();
+	while (1)
+	{
+		system("cls");
+		switch (meniu()) {
+		case '1':
+			fflush(stdin);
+			cout << "in lucru";
+		case '2':
+			cout << "si mai in lucru";
+		case'3':
+			cout << "aici e mai ok, trebuie niste info";
+		case '4':
+			exit(0);
+		default:
+			cout << "\nOptiune inexistenta!";
+		}
+		_getch();
+	}
+
 	return 0;
 }
