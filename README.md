@@ -1,6 +1,7 @@
 # X-si-0
 #include <iostream>
 #include <conio.h>
+#include <time.h>
 
 using namespace std;
 char jucator = 'X';
@@ -46,9 +47,9 @@ void alegere()
 {
 	int esteValid;
 	char a;
-	cout << "Alegeti numarul campului: ";
+	cout << "Alegeti numarul campului: \n";
 	do {
-		cin >> a;
+		a = _getche();
 		esteValid = 1;
 		if (a == '1' && matPoz[0] == '1')
 			matPoz[0] = jucator;
@@ -127,7 +128,32 @@ int tablaPlina()
 
 void mutariComp()
 {
-	int R, adev;
+	int R, OK;
+	do {
+		OK = 1;
+		R = rand() % 9 + 1;
+		if (R == 1 && matPoz[0] == '1')
+			matPoz[0] = jucator;
+		else if (R == 2 && matPoz[1] == '2')
+			matPoz[1] = jucator;
+		else if (R == 3 && matPoz[2] == '3')
+			matPoz[2] = jucator;
+		else if (R == 4 && matPoz[3] == '4')
+			matPoz[3] = jucator;
+		else if (R == 5 && matPoz[4] == '5')
+			matPoz[4] = jucator;
+		else if (R == 6 && matPoz[5] == '6')
+			matPoz[5] = jucator;
+		else if (R == 7 && matPoz[6] == '7')
+			matPoz[6] = jucator;
+		else if (R == 8 && matPoz[7] == '8')
+			matPoz[7] = jucator;
+		else if (R == 9 && matPoz[8] == '9')
+			matPoz[8] = jucator;
+		else
+			OK = 0;
+
+	} while (!OK);
 
 }
 
@@ -135,7 +161,85 @@ void singlePlayerEasy()
 {
 	int scorX=0, scorO=0, nrJocuri=0;
 	char tura, play = '1';
+	do {
+		cout << "| Apasati 1 pentru a incepe primul |\n";
+		cout << "| Apasati 2 pentru a incepe al doilea |\n";
+		tura = _getche();
+		while (tura != '1'&&tura != '2')
+		{
+			cout << "Optiune incorecta, incercati din nou: ";
+			tura = _getche();
+			system("CLS");
+			cout << "| Apasati 1 pentru a incepe primul |\n";
+			cout << "| Apasati 2 pentru a incepe al doilea |\n";
 
+		}
+		if (tura == '1')
+			jucator = 'X';
+		else
+			jucator = 'O';
+		if (tura == '1')
+		{
+			while (testCastig() != 'X'&&testCastig() != 'O')
+			{
+				system("CLS");
+				masaJoc(matPoz);
+				cout << "| Este randul dumneavoastra |"<<endl;
+				alegere();
+				if (tablaPlina())
+					break;
+				schimbareJucator();
+				mutariComp();
+				if (tablaPlina())
+					break;
+				schimbareJucator();
+
+			}
+		}
+		else if (tura == '2')
+		{
+			while (testCastig() != 'X'&&testCastig() != 'O')
+			{
+				mutariComp();
+				if (tablaPlina())
+					break;
+				system("CLS");
+				masaJoc(matPoz);
+				if (testCastig() == 'X' || testCastig() == 'O')
+					break;
+				schimbareJucator();
+				cout << "| Este randul dumneavoastra |"<<endl;
+				alegere();
+				if (tablaPlina())
+					break;
+				schimbareJucator();
+			}
+		}
+		if (testCastig() == 'X')
+		{
+			scorX++;
+			nrJocuri++;
+			cout << "***Felicitari, ai castigat!***"<<endl;
+
+		}
+		else if (testCastig() == 'O')
+		{
+			scorO++;
+			nrJocuri++;
+			cout << "***Calculatorul a castigat!***"<<endl;
+
+		}
+		else if (tablaPlina())
+		{
+			nrJocuri++;
+			cout << "***Remiza!***"<<endl;
+
+		}
+
+
+
+	} while (play == '1');
+	system("CLS");
 
 }
 
@@ -158,8 +262,6 @@ int main()
 			if (_getch() == '1')
 			{
 				fflush(stdin);
-				masaJoc(matPoz);
-				alegere();
 				singlePlayerEasy();
 
 			}
