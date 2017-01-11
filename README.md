@@ -3,10 +3,13 @@
 #include <conio.h>
 #include <time.h>
 
+
 using namespace std;
 char jucator = 'X';
 char matPoz[9]= {'1','2','3','4','5','6','7','8','9'};
+char exemplu[9] = { 'X','O','O','O','X','6','O','8','X' };
 char nume1[30], nume2[30];
+int joc = 2;
 
 char meniu()
 {
@@ -19,18 +22,18 @@ char meniu()
 	return _getche();
 }
 
-void masaJoc(char[])
+void masaJoc(char x[])
 {
 	cout << "\n  -----X SI 0-----" << endl << endl;
 	cout <<"\n     "<< nume1 << " vs " << nume2<<"\n"<<endl<<endl;
 	cout << "       |   |     " << endl;
-	cout <<"     "<<matPoz[0] << " | " << matPoz[1] << " | " << matPoz[2] << endl;
+	cout <<"     "<<x[0] << " | " << x[1] << " | " << x[2] << endl;
 	cout << "    ___|___|___" << endl;
 	cout << "       |   |     " << endl;
-	cout << "     " << matPoz[3] << " | " << matPoz[4] << " | " << matPoz[5] << endl;
+	cout << "     " << x[3] << " | " << x[4] << " | " << x[5] << endl;
 	cout << "    ___|___|___" << endl;
 	cout << "       |   |     " << endl;
-	cout << "     " << matPoz[6] << " | " << matPoz[7] << " | " << matPoz[8] << endl;
+	cout << "     " << x[6] << " | " << x[7] << " | " << x[8] << endl;
 	cout << "       |   |     " << endl;
 
 }
@@ -131,6 +134,7 @@ void mutariComp()
 	int R, OK;
 	do {
 		OK = 1;
+		srand(time(0));
 		R = rand() % 9 + 1;
 		if (R == 1 && matPoz[0] == '1')
 			matPoz[0] = jucator;
@@ -156,6 +160,28 @@ void mutariComp()
 	} while (!OK);
 
 }
+void scor(int a, int b, int c, char *nume1, char *nume2)
+{
+	cout << "| Scor " << nume1 << ": " << a << " |" << endl;
+	cout << "| Scor " << nume2 << ": " << b << " |" << endl;
+	cout << "| Numar jocuri: " << c << " |" << endl;
+
+}
+
+void reset()
+{
+	matPoz[0] = '1';
+	matPoz[1] = '2';
+	matPoz[2] = '3';
+	matPoz[3] = '4';
+	matPoz[4] = '5';
+	matPoz[5] = '6';
+	matPoz[6] = '7';
+	matPoz[7] = '8';
+	matPoz[8] = '9';
+	jucator = 'X';
+}
+
 
 void singlePlayerEasy()
 {
@@ -232,8 +258,10 @@ void singlePlayerEasy()
 		else if (tablaPlina())
 		{
 			nrJocuri++;
-			cout << "***Remiza!***"<<endl;
-
+			cout << "\n-----------------" << endl;
+			cout << "| ***Remiza!*** |" << endl;
+			cout << "-----------------" << endl;
+			masaJoc(matPoz);
 		}
 
 
@@ -347,6 +375,7 @@ void mutariCompHard()
 	{
 		do {
 			OK = 1;
+			srand(time(0));
 			R = rand() % 9 + 1;
 			if (R == 1 && matPoz[0] == '1')
 				matPoz[0] = jucator;
@@ -510,18 +539,52 @@ void multiplayer()
 		else if (tablaPlina())
 		{
 			nrJocuri++;
-			cout << "\n-----------" << endl;
-			cout << "| Remiza! |" << endl;
-			cout << "-----------" << endl;
+			cout << "\n---------------" << endl;
+			cout << "| ***Remiza!*** |" << endl;
+			cout << "-----------------" << endl;
+			masaJoc(matPoz);
+		}
+		scor(scorX, scor0, nrJocuri, nume1, nume2);
+		cout << "-------------------------------------------------" << endl;
+		cout << "| Apasati 1 pentru a juca din nou               |" << endl;
+		cout << "| Apasati 2 pentru a reveni la meniul principal |" << endl;
+		cout << "| Apasati 3 pentru a iesi                       |" << endl;
+		cout << "-------------------------------------------------" << endl;
+	eticheta:
+		play = _getche();
+		if (play == '1')
+		{
+			reset();
+			system("CLS");
+		}
+		else if (play == '2')
+		{
+			joc = 2;
+			reset();
+			system("CLS");
+			meniu();
+		}
+		else if (play == '3')
+			exit(0);
+		else
+		{
+			system("CLS");
+			cout << "-------------------------------------------------" << endl;
+			cout << "| Apasati 1 pentru a juca din nou               |" << endl;
+			cout << "| Apasati 2 pentru a reveni la meniul principal |" << endl;
+			cout << "| Apasati 3 pentru a iesi                       |" << endl;
+			cout << "-------------------------------------------------" << endl;
+			cout << "Optiune incorecta, incercati din nou: " << endl;
+			goto eticheta;
 		}
 	} while (play == '1');
-
+	system("CLS");
 }
 
 int main()
 {
 	int x;
-	system("color b");
+	system("color 9A");
 	while (1)
 	{
 		switch (meniu()) {
@@ -551,19 +614,37 @@ int main()
 
 			cin >> x;
 		case '2':
-			system("CLS");
-			cout << "\nNumele primului jucator: ";
-			cin >> nume1;
-			cout << "Numele celui de-al doilea jucator: ";
-			cin >> nume2;
-			multiplayer();
-			cin >> x;
+			while (joc == 2)
+			{
+				system("CLS");
+				cout << "\nNumele primului jucator: ";
+				cin >> nume1;
+				cout << "Numele celui de-al doilea jucator: ";
+				cin >> nume2;
+				multiplayer();
+				cin >> x;
+			}
 		case'3':
-			cout << "info";
+			system("CLS");
+			cout << " X si 0, este un joc pentru doi jucatori, X respectiv 0 care marcheaza pe rand cate o casuta dintr-un tabel cu 3 linii si 3 coloane.\n";
+			cout << "Jucatorul care reuseste sa marcheze primul 3 casute adiacente pe orizontala, verticala sau diagonala, castiga jocul."<<endl;
+			cout << "\nExemplu:\n";
+			masaJoc(exemplu);
+			cout << "-------------------------------\n";
+			cout << "Apasati 1 pentru a va intoarce la meniul principal\n";
+			while (_getch() != '1')
+			{
+				system("CLS");
+				cout << "Optiune incorecta, incercati din nou: ";
+				_getch();
+			}
+			system("CLS");
+			meniu();
+			cin >> x;
 		case '4':
 			exit(0);
 		default:
-			cout << "\nOptiune inexistenta!";
+			cout << "\nOptiune incorecta!\n";
 		}
 		_getch();
 	}
