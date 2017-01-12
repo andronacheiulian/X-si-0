@@ -162,10 +162,24 @@ void mutariComp()
 }
 void scor(int a, int b, int c, char *nume1, char *nume2)
 {
-	cout << "| Scor " << nume1 << ": " << a << " |" << endl;
-	cout << "| Scor " << nume2 << ": " << b << " |" << endl;
+	cout << "| Scor " << nume1 << ": " << a << "      |" << endl;
+	cout << "| Scor " << nume2 << ": " << b << "      |" << endl;
 	cout << "| Numar jocuri: " << c << " |" << endl;
 
+}
+
+void scor2(int a, int b, int c, char *nume1)
+{
+	cout << "| Scor " << nume1 << ": " << a << "              |" << endl;
+	cout << "| Scor calculator: " << b << "      |" << endl;
+	cout << "| Numar jocuri: " << c << "         |" << endl;
+}
+
+void scor3(int a, int b, int c, char *nume1)
+{
+	cout << "| Scor " << nume1 << ": " << a << "              |" << endl;
+	cout << "| Scor calculator: " << b << "      |" << endl;
+	cout << "| Numar jocuri: " << c << "         |" << endl;
 }
 
 void reset()
@@ -245,14 +259,18 @@ void singlePlayerEasy()
 		{
 			scorX++;
 			nrJocuri++;
-			cout << "***Felicitari, ai castigat!***"<<endl;
+			cout << "\n----------------------------------" << endl;
+			cout << "| ***Felicitari, ai castigat!*** |"<<endl;
+			cout << "----------------------------------" << endl;
 
 		}
 		else if (testCastig() == 'O')
 		{
 			scorO++;
 			nrJocuri++;
-			cout << "***Calculatorul a castigat!***"<<endl;
+			cout << "\n----------------------------------" << endl;
+			cout << "| ***Calculatorul a castigat!*** |" << endl;
+			cout << "----------------------------------" << endl;
 
 		}
 		else if (tablaPlina())
@@ -261,14 +279,42 @@ void singlePlayerEasy()
 			cout << "\n-----------------" << endl;
 			cout << "| ***Remiza!*** |" << endl;
 			cout << "-----------------" << endl;
-			masaJoc(matPoz);
 		}
-
-
-
+		scor2(scorX, scorO, nrJocuri, nume1);
+		cout << "-------------------------------------------------" << endl;
+		cout << "| Apasati 1 pentru a juca din nou               |" << endl;
+		cout << "| Apasati 2 pentru a reveni la meniul principal |" << endl;
+		cout << "| Apasati 3 pentru a iesi                       |" << endl;
+		cout << "-------------------------------------------------" << endl;
+	eticheta:
+		play = _getche();
+		if (play == '1')
+		{
+			reset();
+			system("CLS");
+		}
+		else if (play == '2')
+		{
+			joc = 2;
+			reset();
+			system("CLS");
+			meniu();
+		}
+		else if (play == '3')
+			exit(0);
+		else
+		{
+			system("CLS");
+			cout << "-------------------------------------------------" << endl;
+			cout << "| Apasati 1 pentru a juca din nou               |" << endl;
+			cout << "| Apasati 2 pentru a reveni la meniul principal |" << endl;
+			cout << "| Apasati 3 pentru a iesi                       |" << endl;
+			cout << "-------------------------------------------------" << endl;
+			cout << "Optiune incorecta, incercati din nou: " << endl;
+			goto eticheta;
+		}
 	} while (play == '1');
 	system("CLS");
-
 }
 
 void mutariCompHard()
@@ -466,28 +512,63 @@ void singlePlayerHard()
 		{
 			scorX++;
 			nrJocuri++;
-			cout << "***Felicitari, ai castigat!***" << endl;
+			cout << "\n----------------------------------" << endl;
+			cout << "| ***Felicitari, ai castigat!*** |" << endl;
+			cout << "----------------------------------" << endl;
 
 		}
 		else if (testCastig() == 'O')
 		{
 			scorO++;
 			nrJocuri++;
-			cout << "***Calculatorul a castigat!***" << endl;
+			cout << "\n----------------------------------" << endl;
+			cout << "| ***Calculatorul a castigat!*** |" << endl;
+			cout << "----------------------------------" << endl;
 
 		}
 		else if (tablaPlina())
 		{
 			nrJocuri++;
-			cout << "***Remiza!***" << endl;
+			cout << "\n-----------------" << endl;
+			cout << "| ***Remiza!*** |" << endl;
+			cout << "-----------------" << endl;
 
 		}
-
-
-
+		scor3(scorX, scorO, nrJocuri, nume1);
+		cout << "-------------------------------------------------" << endl;
+		cout << "| Apasati 1 pentru a juca din nou               |" << endl;
+		cout << "| Apasati 2 pentru a reveni la meniul principal |" << endl;
+		cout << "| Apasati 3 pentru a iesi                       |" << endl;
+		cout << "-------------------------------------------------" << endl;
+	eticheta:
+		play = _getche();
+		if (play == '1')
+		{
+			reset();
+			system("CLS");
+		}
+		else if (play == '2')
+		{
+			joc = 2;
+			reset();
+			system("CLS");
+			meniu();
+		}
+		else if (play == '3')
+			exit(0);
+		else
+		{
+			system("CLS");
+			cout << "-------------------------------------------------" << endl;
+			cout << "| Apasati 1 pentru a juca din nou               |" << endl;
+			cout << "| Apasati 2 pentru a reveni la meniul principal |" << endl;
+			cout << "| Apasati 3 pentru a iesi                       |" << endl;
+			cout << "-------------------------------------------------" << endl;
+			cout << "Optiune incorecta, incercati din nou: " << endl;
+			goto eticheta;
+		}
 	} while (play == '1');
 	system("CLS");
-
 }
 
 void multiplayer()
@@ -527,14 +608,14 @@ void multiplayer()
 			scorX++;
 			nrJocuri++;
 			cout << "\n| ***" << nume1 << " a castigat!*** |" << endl;
-			cout << "---------------------------------------" << endl;
+			cout << "-------------------------------------------------" << endl;
 		}
 		else if (testCastig() == 'O')
 		{
 			scor0++;
 			nrJocuri++;
 			cout << "\n| ***" << nume2 << " a castigat!*** |" << endl;
-			cout << "---------------------------------------" << endl;
+			cout << "-------------------------------------------------" << endl;
 		}
 		else if (tablaPlina())
 		{
