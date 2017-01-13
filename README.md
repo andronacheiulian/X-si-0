@@ -13,11 +13,16 @@ int joc = 2;
 
 char meniu()
 {
-	cout << "          X si 0\n" << endl;
-	cout << "   1.Joc nou- Single Player\n";
-	cout << "   2.Joc nou- Multiplayer\n";
-	cout << "   3.Informatii joc\n";
-	cout << "   4.Iesire\n";
+	cout << "         **********" << endl;
+	cout << "         | X si 0 |" << endl;
+	cout << "         **********" << endl;
+	cout << "   __________________________" << endl;
+	cout << "  |                          |" << endl;
+	cout << "  | 1.Joc nou- Single Player |\n";
+	cout << "  | 2.Joc nou- Multiplayer   |\n";
+	cout << "  | 3.Informatii joc         |\n";
+	cout << "  | 4.Iesire                 |\n";
+	cout << "   __________________________" << endl;
 	cout << "\n\nAlegeti optiunea: ";
 	return _getche();
 }
@@ -664,7 +669,6 @@ void multiplayer()
 
 int main()
 {
-	int x;
 	system("color 9A");
 	while (1)
 	{
@@ -675,9 +679,11 @@ int main()
 			cin >> nume1;
 			cout << "Alegeti numele calculatorului: ";
 			cin >> nume2;
-			cout << "Alegeti nivelul de dificultate: ";
-			cout << "\n| Easy(1) |";
-			cout << "\n| Hard(2) |"<<endl;
+			cout << "Alegeti nivelul de dificultate: " << endl;;
+			cout << "-----------" << endl;
+			cout << "| Easy(1) |" << endl;
+			cout << "| Hard(2) |"<<endl;
+			cout << "-----------" << endl;
 			if (_getch() == '1')
 			{
 				fflush(stdin);
@@ -693,7 +699,6 @@ int main()
 			fflush(stdin);
 			masaJoc(matPoz);
 
-			cin >> x;
 		case '2':
 			while (joc == 2)
 			{
@@ -703,7 +708,6 @@ int main()
 				cout << "Numele celui de-al doilea jucator: ";
 				cin >> nume2;
 				multiplayer();
-				cin >> x;
 			}
 		case'3':
 			system("CLS");
@@ -721,15 +725,15 @@ int main()
 			}
 			system("CLS");
 			meniu();
-			cin >> x;
 		case '4':
 			exit(0);
 		default:
-			cout << "\nOptiune incorecta!\n";
+		{
+			system("CLS");
+			cout << "\nOptiune incorecta, apasati orice tasta pentru a reveni la meniu \n";
+		}
 		}
 		_getch();
 	}
-	cin >> x;
-
-	return 0;
+	system("pause");
 }
